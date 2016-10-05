@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<ListPreference
+        android:entries="@array/language_list_entry"
+        android:entryValues="@array/language_list_entryvalues"
+        android:key="prefUserSettings"
+        android:title="@string/title_languagecategory_usersettings"></ListPreference>-->
+    <!-- android:defaultValue="https://172.16.110.11/"-->
+    <EditTextPreference
+
+        android:defaultValue="https://172.16.110.11/"
+        android:dialogMessage="Service Base URL"
+        android:dialogTitle="Service Base URL"
+        android:key="ServiceBaseAddress"
+        android:summary="Service Base URl"
+        android:title="Service Base URL" />
+<!--
+    <EditTextPreference
+        android:defaultValue="00:06:66:68:02:6A"
+        android:dialogMessage="ABD Sys Android FP Device Address"
+        android:dialogTitle="ABD Sys Android FP Device Address"
+        android:key="ABDSysAndroidFPDevice"
+        android:summary="ABD Sys Android FP Device Address"
+        android:title="ABD Sys Android FP Device Address" />-->
+
+
+   <!-- <CheckBoxPreference
+
+        android:dialogMessage="Enable Debug mode"
+
+        android:key="isDebugModeOn"
+
+        android:title="Debug Mode" />
+-->
+    <ListPreference
+        android:entries="@array/fp_device_list"
+        android:entryValues="@array/fp_device_value_list"
+        android:key="preSelectedFPDevice"
+        android:title="@string/title_fp_device_type"></ListPreference>
+
+</PreferenceScreen>

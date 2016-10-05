@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:background="@color/generic_blue"
+    android:paddingTop="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/lblHeader1InApp"
+                android:layout_width="0dp"
+                android:layout_height="23dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical|left"
+                android:text=": "
+                android:textColor="@color/ten_percent_gray"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutAgentNameInHeader"
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/lblHeader2InApp"
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical|left"
+                    android:text=": "
+                    android:textColor="@color/ten_percent_gray"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="23dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical|right"
+                    android:text="এজেন্টের ব্যালেন্স "
+                    android:textColor="@color/cyan_85_color"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical|left"
+                    android:textColor="@color/ten_percent_gray"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutAgentAddressInHeader"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/lblHeader3InApp"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical|left"
+                    android:lines="2"
+                    android:singleLine="false"
+                    android:text=": "
+                    android:textColor="@color/ten_percent_gray"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imvLogOut"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+
+        android:src="@drawable/doer_app_nameandlogo" />
+
+    <LinearLayout
+        android:id="@+id/layoutTitlesInHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/twenty_percent_gray"
+        android:orientation="vertical"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/lblActivityTitle1"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/generic_blue"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+
+            android:id="@+id/lblActivityTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/generic_blue"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>
