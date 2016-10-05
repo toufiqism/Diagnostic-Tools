@@ -13,12 +13,14 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.csb.android.agentbankingdiagnostictools.serverconnection.RestClient;
 import net.csb.android.agentbankingdiagnostictools.utility.AppUtils;
@@ -43,7 +45,7 @@ import java.util.Date;
 public class MenuScreenActivity extends AppCompatActivity {
 
     LinearLayout layoutServerIP, layoutAgentBalanceEnquiryInAgentTools, layoutResponse, layoutNumberOfTasksToBeExecutedInAgentTools;
-    ImageView imvServerIP;
+    Button imvServerIP;
     Button btnGoBack;
     ImageView imvTask;
     EditText txtTask, txtServerIp;
@@ -116,6 +118,11 @@ public class MenuScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 URL = txtServerIp.getText().toString().trim();
+                Toast t = Toast.makeText(MenuScreenActivity.this, "IP UPDATED", Toast.LENGTH_LONG);
+
+                t.setGravity(Gravity.CENTER, 0, 60);
+                t.show();
+
             }
         });
         txtResponse.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +139,7 @@ public class MenuScreenActivity extends AppCompatActivity {
     }
 
     private void initializeUIControls() throws Exception {
-        imvServerIP = (ImageView) findViewById(R.id.imvServerIP);
+        imvServerIP = (Button) findViewById(R.id.imvServerIP);
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
         layoutServerIP = (LinearLayout) findViewById(R.id.layoutServerIP);
         layoutAgentBalanceEnquiryInAgentTools = (LinearLayout) findViewById(R.id.layoutAgentBalanceEnquiryInAgentTools);
