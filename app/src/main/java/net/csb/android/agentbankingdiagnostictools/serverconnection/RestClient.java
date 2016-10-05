@@ -4,6 +4,7 @@ import android.util.Log;
 
 
 import net.csb.android.agentbankingdiagnostictools.utility.Configuration;
+import net.csb.android.agentbankingdiagnostictools.utility.StaticData;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -248,13 +249,13 @@ public class RestClient {
             client = new DefaultHttpClient(httpParameters);
         }
         /*AgentRequestDAO agentRequestDAO = new AgentRequestDAO();
-		AgentRequest agentRequest = agentRequestDAO.getAgentRequestObject();
+        AgentRequest agentRequest = agentRequestDAO.getAgentRequestObject();
 		Log.d("After URL",
 				agentRequest.getLoginID() + "    " + agentRequest.getPassword());*/
         ((AbstractHttpClient) client).getCredentialsProvider().setCredentials(
                 new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-                new UsernamePasswordCredentials("47480101",
-                        "3608a6d1a05aba23ea390e5f3b48203dbb7241f7"));
+                new UsernamePasswordCredentials(StaticData.USER_NAME,
+                        StaticData.PASSWORD));
 
         HttpResponse httpResponse;
         try {

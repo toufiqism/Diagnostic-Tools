@@ -61,7 +61,7 @@
 
     <string name="label_agentlogin">Agent Sign In</string>
     <!-- <string name="label_agentlogin">Branch Sign In</string> -->
-    <string name="app_name">Agrani Doer Banking</string> <!-- Will be changed to Agrani Logo -->
+    <string name="app_name">Diagnostics Tool App</string> <!-- Will be changed to Agrani Logo -->
     <string name="login">Login</string>
     <string name="Login_progress">Login....</string>
     <string name="sign_out">Sign Out</string>
