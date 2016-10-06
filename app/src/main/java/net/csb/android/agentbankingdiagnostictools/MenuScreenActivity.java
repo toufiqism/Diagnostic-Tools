@@ -418,9 +418,9 @@ public class MenuScreenActivity extends AppCompatActivity {
 
 
                         stringBuilder.append("Payload: " + payload + "\n");
-                        stringBuilder.append("Android App Time: " + androidAppTime + "\n");
-                        stringBuilder.append("Received Time from server: " + recievedServerTime + "\n");
-                        stringBuilder.append("Send Time from server: " + sentServerTime + "\n");
+                        stringBuilder.append("Android App Time: " + AppUtils.formatDate(androidAppTime) + "\n");
+                        stringBuilder.append("Received Time from server: " + AppUtils.formatDate(recievedServerTime) + "\n");
+                        stringBuilder.append("Send Time from server: " + AppUtils.formatDate(sentServerTime) + "\n");
 
                         txtResponse.setText(stringBuilder.toString());
                     } else {

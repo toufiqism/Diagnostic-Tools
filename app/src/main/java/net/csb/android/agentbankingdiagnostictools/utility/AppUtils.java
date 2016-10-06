@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.DOER.currencyToWords.CurrencyToWords;
 
 
-
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -525,7 +524,7 @@ public class AppUtils {
         try {
 
             // formatter = new SimpleDateFormat("EEE MMM d, y KK:mm:ss aaa");
-            formatter = new SimpleDateFormat("EEE MMM d, y hh:mm:ss aaa");
+            formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
 
         } catch (Exception e) {
             formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
