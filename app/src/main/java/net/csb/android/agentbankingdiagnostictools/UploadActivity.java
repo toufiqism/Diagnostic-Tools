@@ -23,10 +23,10 @@ public class UploadActivity extends AppCompatActivity {
 
     long baseTime = System.currentTimeMillis();
     String urlForDownload = "http://nothing.com/";
-    int downloadCounter = 0;
-    long[] downloadStartTime;
-    long[] downloadEndTime;
-    long[] downloadTimeInterval;
+    int uploadCounter = 0;
+    long[] uploadStartTime;
+    long[] uploadEndTime;
+    long[] uploadTimeInterval;
 
 
     RestClientUpDown restClient;
@@ -51,35 +51,34 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailsReport.setText("Downlaoding...");
-                downloadCounter = Integer.parseInt(urlCounter.getText().toString());
-                downloadStartTime = new long[downloadCounter];
-                downloadEndTime= new long[downloadCounter];
-                downloadTimeInterval= new long[downloadCounter];
+                detailsReport.setText("Uploading...");
+                uploadCounter = Integer.parseInt(urlCounter.getText().toString());
+                uploadStartTime = new long[uploadCounter];
+                uploadEndTime = new long[uploadCounter];
+                uploadTimeInterval = new long[uploadCounter];
                 baseTime = System.currentTimeMillis();
-                new AsyncCustomerEnquiryExistingAccount(UploadActivity.this).execute();
+                new UploadTask(UploadActivity.this).execute();
             }
         });
     }
 
 
-
-    public class AsyncCustomerEnquiryExistingAccount extends
+    public class UploadTask extends
             AsyncTask<Void, Void, String> {
 
         private Context context;
         ProgressDialog pDialog;
 
-        public AsyncCustomerEnquiryExistingAccount(Context con) {
+        public UploadTask(Context con) {
             context = con;
             pDialog = new ProgressDialog(context);
-            Log.d("UploadActivity", "downloadCounter : "+downloadCounter);
+            Log.d("UploadActivity", "uploadCounter : "+ uploadCounter);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            downloadStartTime[downloadCounter-1] = System.currentTimeMillis()-baseTime;
+            uploadStartTime[uploadCounter -1] = System.currentTimeMillis()-baseTime;
             Log.d("UploadActivity", "Download Starting now .... "+  (System.currentTimeMillis()-baseTime));
         }
 
@@ -114,23 +113,23 @@ public class UploadActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            downloadEndTime[downloadCounter-1] = System.currentTimeMillis()-baseTime;
-            downloadTimeInterval[downloadCounter-1] = downloadEndTime[downloadCounter-1] -downloadStartTime[downloadCounter-1];
+            uploadEndTime[uploadCounter -1] = System.currentTimeMillis()-baseTime;
+            uploadTimeInterval[uploadCounter -1] = uploadEndTime[uploadCounter -1] - uploadStartTime[uploadCounter -1];
             Log.d("UploadActivity", "Download Finished now .... "+  (System.currentTimeMillis()-baseTime));
             Log.d("UploadActivity", "result : "+result);
             onCancelled();
-            downloadCounter--;
-            if(downloadCounter>0){
-                new AsyncCustomerEnquiryExistingAccount(UploadActivity.this).execute();
+            uploadCounter--;
+            if(uploadCounter >0){
+                new UploadTask(UploadActivity.this).execute();
             }
             else{
                 String detailsString = "";
                 long totalTime = 0;
-                for(int i=downloadEndTime.length-1 ; i>=0  ; i--){
-                    totalTime += downloadTimeInterval[i];
-                    detailsString += (downloadEndTime.length-i)+" : "+downloadStartTime[i]+"-"+downloadEndTime[i]+", "+downloadTimeInterval[i]+"\n";
+                for(int i = uploadEndTime.length-1; i>=0  ; i--){
+                    totalTime += uploadTimeInterval[i];
+                    detailsString += (uploadEndTime.length-i)+" : "+ uploadStartTime[i]+"-"+ uploadEndTime[i]+", "+ uploadTimeInterval[i]+"\n";
                 }
-                detailsString += "Total Time : "+totalTime+", average time : "+totalTime/downloadEndTime.length;
+                detailsString += "Total Time : "+totalTime+", average time : "+totalTime/ uploadEndTime.length;
                 detailsReport.setText(detailsString);
             }
         }

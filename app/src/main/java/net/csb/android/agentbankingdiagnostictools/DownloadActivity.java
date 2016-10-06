@@ -34,6 +34,7 @@ public class DownloadActivity extends AppCompatActivity {
 
     long baseTime = System.currentTimeMillis();
     String urlForDownload = "";
+    int[] fileSize;
     int downloadCounter = 0;
     long[] downloadStartTime;
     long[] downloadEndTime;
@@ -59,8 +60,9 @@ public class DownloadActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                details.setText("Downlaoding...");
+                details.setText("Downloading...");
                 downloadCounter = Integer.parseInt(urlCounter.getText().toString());
+                fileSize = new int[downloadCounter];
                 downloadStartTime = new long[downloadCounter];
                 downloadEndTime= new long[downloadCounter];
                 downloadTimeInterval= new long[downloadCounter];
@@ -101,7 +103,7 @@ public class DownloadActivity extends AppCompatActivity {
 
         public DownloadTask(Context context) {
             this.context = context;
-            Log.d("DownloadActivity", "downloadCounter : "+downloadCounter);
+            Log.d("DownloadActivity", "uploadCounter : "+downloadCounter);
         }
 
         @Override
@@ -123,13 +125,16 @@ public class DownloadActivity extends AppCompatActivity {
                  new DownloadTask(DownloadActivity.this).execute();
             }
             else{
-                String detailsString = "";
+                String detailsString = "\n";
                 long totalTime = 0;
+                long totalSpeed = 0;
                 for(int i=downloadEndTime.length-1 ; i>=0  ; i--){
                     totalTime += downloadTimeInterval[i];
-                    detailsString += (downloadEndTime.length-i)+" : "+downloadStartTime[i]+"-"+downloadEndTime[i]+", "+downloadTimeInterval[i]+"\n";
+                    double speed = (double)fileSize[i]/(double)downloadTimeInterval[i];
+                    totalSpeed += speed;
+                    detailsString += (downloadEndTime.length-i)+" : "+String.format("%05d", downloadStartTime[i])+"-"+String.format("%05d", downloadEndTime[i])+", "+String.format("%05d", downloadTimeInterval[i])+"ms, SPEED: "+String.format("%5.2f", speed)+"KB\n";
                 }
-                detailsString += "Total Time : "+totalTime+", average time : "+totalTime/downloadEndTime.length;
+                detailsString += "\nTotal Time : "+totalTime+"\naverage time : "+totalTime/downloadEndTime.length+"\naverage speed : "+String.format("%.2f", (double)totalSpeed/(double)downloadEndTime.length);
                 details.setText(detailsString);
             }
         }
@@ -148,6 +153,8 @@ public class DownloadActivity extends AppCompatActivity {
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
+                fileSize[downloadCounter-1] = connection.getContentLength();
+                Log.d("DownloadActivity", "file size : "+fileSize[downloadCounter-1]);
 
                 Log.d("DownloadActivity", "connectivity time : "+  (System.currentTimeMillis()-baseTime));
                 // expect HTTP 200 OK, so we don't mistakenly save error report
@@ -167,6 +174,7 @@ public class DownloadActivity extends AppCompatActivity {
                 output = new FileOutputStream("/sdcard/"+downloadCounter+"_"+urlForDownload.substring( urlForDownload.lastIndexOf('/')+1, urlForDownload.length() ));
 
                 Log.d("DownloadActivity", "download finish time : "+  (System.currentTimeMillis()-baseTime));
+
 
                 byte data[] = new byte[4096];
                 long total = 0;
