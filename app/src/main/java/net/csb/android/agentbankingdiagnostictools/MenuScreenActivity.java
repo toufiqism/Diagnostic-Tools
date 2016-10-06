@@ -161,7 +161,7 @@ public class MenuScreenActivity extends AppCompatActivity {
         btnDownlaod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuScreenActivity.this, UploadActivity.class));
+                startActivity(new Intent(MenuScreenActivity.this, DownloadActivity.class));
             }
         });
     }
