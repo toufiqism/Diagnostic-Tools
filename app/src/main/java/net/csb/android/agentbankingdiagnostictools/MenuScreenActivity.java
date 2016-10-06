@@ -442,7 +442,7 @@ public class MenuScreenActivity extends AppCompatActivity {
                         init++;
 
                         String s = String.valueOf(t2 - t1);
-                        globalStringBuilder.append("Difference in milliseconds : " + s + "\n");
+                        globalStringBuilder.append("Difference : " + s + " ms" + "\n");
                         Log.d(TAG, "::DATA::" + globalStringBuilder);
                         txtResponse.setText(globalStringBuilder);
                         checkINIT();
