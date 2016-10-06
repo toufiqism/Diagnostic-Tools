@@ -286,7 +286,7 @@ public class RestClientUpDown {
 
 		((AbstractHttpClient) client).getCredentialsProvider().setCredentials(
 				new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-				new UsernamePasswordCredentials("47480101", "3608a6d1a05aba23ea390e5f3b48203dbb7241f7"));
+				new UsernamePasswordCredentials(StaticData.USER_NAME, StaticData.PASSWORD));
 
 		HttpResponse httpResponse;
 		try {

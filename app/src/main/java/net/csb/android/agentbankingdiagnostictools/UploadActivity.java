@@ -14,12 +14,15 @@ import android.widget.TextView;
 
 import net.csb.android.agentbankingdiagnostictools.utility.MD5HashGenerator;
 import net.csb.android.agentbankingdiagnostictools.utility.RestClientUpDown;
+import net.csb.android.agentbankingdiagnostictools.utility.StaticData;
 
 
 public class UploadActivity extends AppCompatActivity {
 
+    private String SERVICE_REQUEST_FOR_UPLOAD = "diagnostics/abl/upload10k";
+
     long baseTime = System.currentTimeMillis();
-    String urlForDownload = "http://192.168.0.111:4231/diagnostics/abl/upload10k";
+    String urlForDownload = "http://nothing.com/";
     int downloadCounter = 0;
     long[] downloadStartTime;
     long[] downloadEndTime;
@@ -39,6 +42,8 @@ public class UploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
+        urlForDownload = StaticData.BASEURL+SERVICE_REQUEST_FOR_UPLOAD;
+
         btnUpload = (Button) findViewById(R.id.btnUpload);
         urlCounter = (EditText) findViewById(R.id.counter);
         detailsReport = (TextView) findViewById(R.id.details);
@@ -46,6 +51,7 @@ public class UploadActivity extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                detailsReport.setText("Downlaoding...");
                 downloadCounter = Integer.parseInt(urlCounter.getText().toString());
                 downloadStartTime = new long[downloadCounter];
                 downloadEndTime= new long[downloadCounter];

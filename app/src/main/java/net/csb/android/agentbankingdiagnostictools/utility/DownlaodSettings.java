@@ -5,6 +5,5 @@ package net.csb.android.agentbankingdiagnostictools.utility;
  */
 
 public class DownlaodSettings {
-    public static final String[]  URL_LIST = {"http://192.168.0.111/100KBdownload.jpg",
-                                            "http://www.tutorialspoint.com/java/java_tutorial.pdf"};
+    public static final String[]  URL_LIST = {"1KB.txt", "5KB.txt", "10KB.txt", "100KB.txt", "500KB.txt"};
 }

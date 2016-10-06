@@ -134,11 +134,9 @@ public class MenuScreenActivity extends AppCompatActivity {
         imvServerIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StaticData.BASEURL = URL + BASE;
                 URL = txtServerIp.getText().toString().trim();
-
+                StaticData.BASEURL = URL;
                 Toast t = Toast.makeText(MenuScreenActivity.this, "IP UPDATED", Toast.LENGTH_LONG);
-
                 t.setGravity(Gravity.CENTER, 0, 60);
                 t.show();
 

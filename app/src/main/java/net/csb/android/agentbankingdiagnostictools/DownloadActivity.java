@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.csb.android.agentbankingdiagnostictools.utility.DownlaodSettings;
+import net.csb.android.agentbankingdiagnostictools.utility.StaticData;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -46,19 +47,19 @@ public class DownloadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Button button = (Button) findViewById(R.id.btnDownload);
         Button btnSelectUrl = (Button) findViewById(R.id.btnUrlSelect);
         final TextView urlText = (TextView) findViewById(R.id.urlText);
         details = (TextView) findViewById(R.id.details);
         final EditText urlCounter = (EditText) findViewById(R.id.counter);
 
-        urlForDownload = DownlaodSettings.URL_LIST[0];
+        urlForDownload = StaticData.BASEURL+DownlaodSettings.URL_LIST[0];
         urlText.setText(urlForDownload);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                details.setText("Downlaoding...");
                 downloadCounter = Integer.parseInt(urlCounter.getText().toString());
                 downloadStartTime = new long[downloadCounter];
                 downloadEndTime= new long[downloadCounter];
@@ -78,7 +79,7 @@ public class DownloadActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int arg) {
                         Log.d("DownloadActivity", ""+arg);
-                        urlForDownload = DownlaodSettings.URL_LIST[arg];
+                        urlForDownload = StaticData.BASEURL+DownlaodSettings.URL_LIST[arg];
                         Log.d("DownloadActivity", "urlForDownload : "+urlForDownload);
                         Toast.makeText(DownloadActivity.this, arg+" : "+urlForDownload, Toast.LENGTH_SHORT).show();
                         urlText.setText(urlForDownload);
