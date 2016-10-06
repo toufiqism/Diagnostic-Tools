@@ -48,6 +48,7 @@ public class MenuScreenActivity extends AppCompatActivity {
     Button imvServerIP;
     Button btnGoBack;
     ImageView imvTask;
+    TextView lblResponse;
     EditText txtTask, txtServerIp;
     TextView txtResponse;
     StringBuilder globalStringBuilder = new StringBuilder("");
@@ -60,6 +61,8 @@ public class MenuScreenActivity extends AppCompatActivity {
     int times;
     private boolean flag = false;
     int init = 0;
+    double average = 0, total = 0;
+    long[] fullNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,8 @@ public class MenuScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 flag = true;
+                lblResponse.setText("RESPONSE");
+
                 new AsyncAgentBalanceInquiry(MenuScreenActivity.this).execute();
             }
         });
@@ -96,14 +101,25 @@ public class MenuScreenActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                times = Integer.parseInt(txtTask.getText().toString().length() != 0 ? txtTask.getText().toString() : "0");
+
+
+                times = Integer.parseInt(s.toString().length() != 0 ? s.toString() : "0");
+                if (times > 1000) {
+                    txtTask.setText("0");
+                }
+                if (times > 100) {
+                    txtTask.setError("Please Enter a number Below 100");
+                } else {
+                    txtTask.clearAnimation();
+                }
             }
         });
         imvTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flag = false;
-                if (txtTask.getText().toString().length() > 0) {
+                lblResponse.setText("RESPONSE");
+                if (txtTask.getText().toString().length() > 0 && times < 100) {
 
                     new AsyncAgentBalanceInquiry(MenuScreenActivity.this).execute();
 
@@ -129,6 +145,7 @@ public class MenuScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 txtResponse.setText("");
+                lblResponse.setText("RESPONSE");
                 layoutResponse.setVisibility(View.GONE);
             }
         });
@@ -139,6 +156,7 @@ public class MenuScreenActivity extends AppCompatActivity {
     }
 
     private void initializeUIControls() throws Exception {
+        lblResponse = (TextView) findViewById(R.id.lblResponse);
         imvServerIP = (Button) findViewById(R.id.imvServerIP);
         txtServerIp = (EditText) findViewById(R.id.txtServerIp);
         layoutServerIP = (LinearLayout) findViewById(R.id.layoutServerIP);
@@ -228,9 +246,9 @@ public class MenuScreenActivity extends AppCompatActivity {
 
 
         restClient.AddParam("requestType", "pingrequest");
-        restClient.AddParam("requestID", new Date().toString());
+        restClient.AddParam("requestID", String.valueOf(System.currentTimeMillis()));
         restClient.AddParam("payload", "PING");
-        restClient.AddParam("androidAppTime", new Date().toString());
+        restClient.AddParam("androidAppTime", String.valueOf(System.currentTimeMillis()));
 
 
         return restClient;
@@ -386,20 +404,30 @@ public class MenuScreenActivity extends AppCompatActivity {
 
                         stringBuilder.append("Payload: " + payload + "\n");
                         stringBuilder.append("Android App Time: " + androidAppTime + "\n");
-                        stringBuilder.append("Received Time from server: " + AppUtils.formatDate(recievedServerTime) + "\n");
-                        stringBuilder.append("Send Time from server: " + AppUtils.formatDate(sentServerTime) + "\n");
+                        stringBuilder.append("Received Time from server: " + recievedServerTime + "\n");
+                        stringBuilder.append("Send Time from server: " + sentServerTime + "\n");
 
                         txtResponse.setText(stringBuilder.toString());
                     } else {
+
+                        t2 = System.currentTimeMillis();
+
+                        fullNumbers = new long[times];
+
+                        fullNumbers[init] = t2 - t1;
+
+
+                        total = total + fullNumbers[init];
+
+                        Log.d(TAG, "::DATA::" + total);
 
 
                         layoutResponse.setVisibility(View.VISIBLE);
                         //txtResponse.setText("asd");
                         init++;
-                        t2 = System.currentTimeMillis();
-                        long ave = (t2 - t1) / times;
+
                         String s = String.valueOf(t2 - t1);
-                        globalStringBuilder.append("Difference in millis :" + s + "\n");
+                        globalStringBuilder.append("Difference in milliseconds : " + s + "\n");
                         Log.d(TAG, "::DATA::" + globalStringBuilder);
                         txtResponse.setText(globalStringBuilder);
                         checkINIT();
@@ -444,6 +472,12 @@ public class MenuScreenActivity extends AppCompatActivity {
             //   new AsyncAgentBalanceInquiry(MenuScreenActivity.this);
         } else {
             init = 0;
+            average = total / times;
+            lblResponse.setText("Average Time: " + average + " ms");
+            Log.d(TAG, "::DATA:: average " + average);
+            average = 0;
+            total = 0;
+            fullNumbers = null;
             globalStringBuilder.setLength(0);
             globalStringBuilder = new StringBuilder("");
             return;
