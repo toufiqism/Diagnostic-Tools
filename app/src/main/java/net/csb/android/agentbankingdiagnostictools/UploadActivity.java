@@ -24,6 +24,7 @@ public class UploadActivity extends AppCompatActivity {
     long baseTime = System.currentTimeMillis();
     String urlForDownload = "http://nothing.com/";
     int uploadCounter = 0;
+    int[] fileSize;
     long[] uploadStartTime;
     long[] uploadEndTime;
     long[] uploadTimeInterval;
@@ -53,6 +54,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onClick(View v) {
                 detailsReport.setText("Uploading...");
                 uploadCounter = Integer.parseInt(urlCounter.getText().toString());
+                fileSize = new int[uploadCounter];
                 uploadStartTime = new long[uploadCounter];
                 uploadEndTime = new long[uploadCounter];
                 uploadTimeInterval = new long[uploadCounter];
@@ -98,6 +100,9 @@ public class UploadActivity extends AppCompatActivity {
 
                 restClient.Execute(RestClientUpDown.RequestMethod.POST);
 
+                fileSize[uploadCounter-1] = restClient.getReQestValues().length();
+                Log.d("UploadActivity", "file size : "+fileSize[uploadCounter-1]);
+
                 response = restClient.getResponse();
 
                 Log.d("UploadActivity", "response : "+response);
@@ -123,13 +128,17 @@ public class UploadActivity extends AppCompatActivity {
                 new UploadTask(UploadActivity.this).execute();
             }
             else{
-                String detailsString = "";
+
+                String detailsString = "\n";
                 long totalTime = 0;
+                long totalSpeed = 0;
                 for(int i = uploadEndTime.length-1; i>=0  ; i--){
                     totalTime += uploadTimeInterval[i];
-                    detailsString += (uploadEndTime.length-i)+" : "+ uploadStartTime[i]+"-"+ uploadEndTime[i]+", "+ uploadTimeInterval[i]+"\n";
+                    double speed = (double)fileSize[i]/(double)uploadTimeInterval[i];
+                    totalSpeed += speed;
+                    detailsString += (uploadEndTime.length-i)+" : "+ String.format("%05d", uploadStartTime[i])+"-"+ String.format("%05d", uploadEndTime[i])+", "+ String.format("%05d", uploadTimeInterval[i])+"ms, SPEED: "+String.format("%5.2f", speed)+"KB\n";
                 }
-                detailsString += "Total Time : "+totalTime+", average time : "+totalTime/ uploadEndTime.length;
+                detailsString += "Total Time : "+totalTime+", average time : "+totalTime/ uploadEndTime.length+"\naverage speed : "+String.format("%.2f", (double)totalSpeed/(double)uploadEndTime.length);;
                 detailsReport.setText(detailsString);
             }
         }
