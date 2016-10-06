@@ -231,7 +231,7 @@ public class MenuScreenActivity extends AppCompatActivity {
 
                                                 }
                                             }
-                                        }).setNegativeButton("Cancel", null).show();
+                                        }).setNegativeButton("Cancel", null).setCancelable(false).show();
                                     }
 
                                 } catch (Exception exp) {
@@ -242,7 +242,7 @@ public class MenuScreenActivity extends AppCompatActivity {
 
                             }
 
-                        }).setNegativeButton("Cancel", null).show();
+                        }).setNegativeButton("Cancel", null).setCancelable(false).show();
 
 
     }
