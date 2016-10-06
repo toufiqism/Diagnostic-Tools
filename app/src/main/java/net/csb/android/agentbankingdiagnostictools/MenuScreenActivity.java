@@ -3,6 +3,7 @@ package net.csb.android.agentbankingdiagnostictools;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +45,8 @@ public class MenuScreenActivity extends AppCompatActivity {
     LinearLayout layoutServerIP, layoutAgentBalanceEnquiryInAgentTools, layoutResponse, layoutNumberOfTasksToBeExecutedInAgentTools;
     Button imvServerIP;
     Button btnGoBack;
+    Button btnDownlaod;
+    Button btnUpload;
     ImageView imvTask;
     TextView lblResponse;
     EditText txtTask, txtServerIp;
@@ -146,6 +149,18 @@ public class MenuScreenActivity extends AppCompatActivity {
                 layoutResponse.setVisibility(View.GONE);
             }
         });
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuScreenActivity.this, UploadActivity.class));
+            }
+        });
+        btnDownlaod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuScreenActivity.this, UploadActivity.class));
+            }
+        });
     }
 
     private void loadData() {
@@ -159,6 +174,8 @@ public class MenuScreenActivity extends AppCompatActivity {
         layoutServerIP = (LinearLayout) findViewById(R.id.layoutServerIP);
         layoutAgentBalanceEnquiryInAgentTools = (LinearLayout) findViewById(R.id.layoutAgentBalanceEnquiryInAgentTools);
         btnGoBack = (Button) findViewById(R.id.btnGoBack);
+        btnDownlaod = (Button) findViewById(R.id.btnDownlaod);
+        btnUpload = (Button) findViewById(R.id.btnUpload);
         txtResponse = (TextView) findViewById(R.id.txtResponse);
         layoutResponse = (LinearLayout) findViewById(R.id.layoutResponse);
         txtTask = (EditText) findViewById(R.id.txtTask);

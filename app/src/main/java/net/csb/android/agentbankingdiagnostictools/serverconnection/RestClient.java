@@ -63,23 +63,23 @@ public class RestClient {
     public String getResponse() {
 
 //		if (response.length() > 4000) {
-//			Log.v("RestClient", "sb.length = " +
+//			Log.v("RestClientUpDown", "sb.length = " +
 //					response.length());
 //			int chunkCount = response.length() / 4000;
 //
 //			for (int i = 0; i <= chunkCount; i++) {
 //				int max = 4000 * (i + 1);
 //				if (max >= response.length()) {
-//					Log.d("RestClient", "chunk " + i + " of " + chunkCount + ":" +
+//					Log.d("RestClientUpDown", "chunk " + i + " of " + chunkCount + ":" +
 //							response.substring(4000 * i));
 //				} else {
-//					Log.d("RestClient", "chunk " + i
+//					Log.d("RestClientUpDown", "chunk " + i
 //							+ " of " + chunkCount + ":" + response.substring(4000 * i,
 //							max));
 //				}
 //			}
 //		} else {
-//			Log.d("RestClient", response);
+//			Log.d("RestClientUpDown", response);
 //		}
 
         return response;
@@ -136,7 +136,7 @@ public class RestClient {
                     for (NameValuePair h : headers) {
                         request.addHeader(h.getName(), h.getValue());
                     }
-                    Log.d("RestClient", url + combinedParams);
+                    Log.d("RestClientUpDown", url + combinedParams);
                     executeRequest(request, url);
                     break;
                 } catch (Exception e) {
@@ -183,7 +183,7 @@ public class RestClient {
 
                     }
 
-                    Log.d("RestClient", EntityUtils.toString(request.getEntity()));
+                    Log.d("RestClientUpDown", EntityUtils.toString(request.getEntity()));
 
                     if (EntityUtils.toString(request.getEntity()).length() > 4000) {
                         Log.v("Result",
@@ -232,7 +232,7 @@ public class RestClient {
 
     private void executeRequest(HttpUriRequest request, String url)
             throws Exception {
-        Log.d("RestClient", url);
+        Log.d("RestClientUpDown", url);
         HttpParams httpParameters = new BasicHttpParams();
         // Set the timeout in milliseconds until a connection is established.
         // The default value is zero, that means the timeout is not used.
@@ -268,7 +268,7 @@ public class RestClient {
                 InputStream instream = entity.getContent();
                 response = convertStreamToString(instream);
                 instream.close();
-                Log.d("RestClient", response);
+                Log.d("RestClientUpDown", response);
             }
 
         } catch (ConnectTimeoutException connectTimeoutException) {
