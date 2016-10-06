@@ -55,7 +55,8 @@ public class MenuScreenActivity extends AppCompatActivity {
     long t1;
     long t2;
     private String TAG = MenuScreenActivity.class.getSimpleName();
-    static String URL = "http://192.168.5.253:4231/diagnostics/abl/pingpong";
+    static String URL = "http://192.168.5.253:4231/";
+    static String BASE = "diagnostics/abl/pingpong";
     final static String BALANCE_INQUIRY = "diagnostics/abl/pingpong";
     //http://192.168.5.253:4231/diagnostics/abl/pingpong
     int times;
@@ -133,7 +134,9 @@ public class MenuScreenActivity extends AppCompatActivity {
         imvServerIP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                StaticData.BASEURL = URL + BASE;
                 URL = txtServerIp.getText().toString().trim();
+
                 Toast t = Toast.makeText(MenuScreenActivity.this, "IP UPDATED", Toast.LENGTH_LONG);
 
                 t.setGravity(Gravity.CENTER, 0, 60);
@@ -322,7 +325,7 @@ public class MenuScreenActivity extends AppCompatActivity {
             try {
 
                 restClient =
-                        getAgentBalanceInquiryRestClient(URL);
+                        getAgentBalanceInquiryRestClient(URL + BASE);
 
                 restClient.Execute(RestClient.RequestMethod.POST);
 

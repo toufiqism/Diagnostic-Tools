@@ -20,4 +20,5 @@ public class StaticData {
     public static String isEnrolledForFT = "";
     public static String USER_NAME = "";
     public static String PASSWORD = "";
+    public static String BASEURL = "";
 }
